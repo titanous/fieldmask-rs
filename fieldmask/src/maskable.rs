@@ -1,4 +1,6 @@
 use thiserror::Error;
+#[cfg(feature = "prost")]
+use prost::bytes::Bytes;
 
 #[derive(Debug, Error)]
 #[error(r#"there's no "{field}" in `{type_str}`"#)]
@@ -149,6 +151,9 @@ maskable!(isize);
 maskable!(usize);
 
 maskable!(String);
+
+#[cfg(feature = "prost")]
+maskable!(Bytes);
 
 impl<T> Maskable for Vec<T> {
     type Mask = bool;
